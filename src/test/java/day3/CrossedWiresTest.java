@@ -17,5 +17,16 @@ class CrossedWiresTest {
 	void test2() {
 		assertEquals(135, new CrossedWires().compute("inputDay3Test2.dat"));
 	}
+	
+	@Test
+	void testPart2() {
+		assertEquals(610, new CrossedWires2().compute("inputDay3Test.dat"));
+	}
+
+	@Test
+	void test2Part2() {
+		assertEquals(410, new CrossedWires2().compute("inputDay3Test2.dat"));
+	}
+
 
 }

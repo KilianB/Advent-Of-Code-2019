@@ -21,6 +21,20 @@ public class ProgramAlarm {
 		part2();
 	}
 
+	private static void part2() {
+		// Part 2
+		ProgramAlarm prog = new ProgramAlarm("inputDay2.dat");
+
+		for (int noun = lowerRange; noun < upperRange; noun++) {
+			for (int verb = lowerRange; verb < upperRange; verb++) {
+				int[] res = prog.compute(noun, verb);
+				if (res[0] == expectedOutput) {
+					System.out.println("Solution found: " + noun + " " + verb + " " + (noun*100 + verb));
+				}
+			}
+		}
+	}
+	
 	private static void part1() {
 		// Part 1
 		System.out.println(Arrays.toString(new ProgramAlarm("inputDay2.dat").compute(0, 2)));
@@ -82,18 +96,6 @@ public class ProgramAlarm {
 
 	// 0 , 2
 
-	private static void part2() {
-		// Part 1
-		ProgramAlarm prog = new ProgramAlarm("inputDay2.dat");
 
-		for (int noun = lowerRange; noun < upperRange; noun++) {
-			for (int verb = lowerRange; verb < upperRange; verb++) {
-				int[] res = prog.compute(noun, verb);
-				if (res[0] == expectedOutput) {
-					System.out.println("Solution found: " + noun + " " + verb + " " + (noun*100 + verb));
-				}
-			}
-		}
-	}
 
 }

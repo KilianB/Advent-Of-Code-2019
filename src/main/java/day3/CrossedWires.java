@@ -14,7 +14,7 @@ public class CrossedWires {
 	List<Point> crossings = new ArrayList<>();
 
 	public static void main(String[] args) {
-		new CrossedWires().compute("inputDay3.dat");
+		new CrossedWires().compute("inputDay3Test.dat");
 	}
 
 	enum Direction {
@@ -39,8 +39,8 @@ public class CrossedWires {
 			io.printStackTrace();
 			System.exit(-1);
 		}
-		
-		//Does not happen
+
+		// Does not happen
 		return -1;
 
 	}
@@ -77,29 +77,19 @@ public class CrossedWires {
 		return instructions;
 	}
 
+	// TODO we could use mutable integer and make it thread safe ...
+	int curX;
+	int curY;
+
 	int traceCable(List<Instruction> instructions, List<Instruction> instructions1) {
 
-		int curX = 0;
-		int curY = 0;
+		curX = 0;
+		curY = 0;
 
 		// Cable 0
 		for (var instruction : instructions) {
 			for (int i = 0; i < instruction.amount; i++) {
-				switch (instruction.dir) {
-				case UP:
-					curY++;
-					break;
-				case DOWN:
-					curY--;
-					break;
-				case LEFT:
-					curX--;
-					break;
-				case RIGHT:
-					curX++;
-					break;
-				}
-				cable0Location.add(new Point(curX, curY));
+				cable0Location.add(computePoint(instruction.dir));
 			}
 		}
 
@@ -108,21 +98,7 @@ public class CrossedWires {
 		curY = 0;
 		for (var instruction : instructions1) {
 			for (int i = 0; i < instruction.amount; i++) {
-				switch (instruction.dir) {
-				case UP:
-					curY++;
-					break;
-				case DOWN:
-					curY--;
-					break;
-				case LEFT:
-					curX--;
-					break;
-				case RIGHT:
-					curX++;
-					break;
-				}
-				Point cable2Location = new Point(curX, curY);
+				Point cable2Location = computePoint(instruction.dir);
 				if (cable0Location.contains(cable2Location)) {
 					crossings.add(cable2Location);
 				}
@@ -140,12 +116,30 @@ public class CrossedWires {
 				curMinDist = dist;
 				closestCrossing = crossing;
 			}
-			// System.out.println(crossing);
+			System.out.println(crossing);
 		}
 
 		System.out.println("Min Dist: " + curMinDist + " " + closestCrossing);
 		return curMinDist;
 
+	}
+
+	Point computePoint(Direction dir) {
+		switch (dir) {
+		case UP:
+			curY++;
+			break;
+		case DOWN:
+			curY--;
+			break;
+		case LEFT:
+			curX--;
+			break;
+		case RIGHT:
+			curX++;
+			break;
+		}
+		return new Point(curX, curY);
 	}
 
 	class Instruction {

@@ -43,6 +43,17 @@ public class InputReader implements AutoCloseable {
 	public int nextInt() throws IOException {
 		return Integer.parseInt(next());
 	}
+	
+	public int[] asInt(String delimiter) throws IOException {
+		String[] tokens = next(delimiter);
+
+		int[] integers = new int[tokens.length];
+		
+		for(int i = 0; i < tokens.length; i++) {
+			integers[i] = Integer.parseInt(tokens[i]);
+		}
+		return integers;
+	}
 
 	public String[] next(String delimiter) throws IOException {
 		return br.readLine().split(delimiter);
@@ -76,6 +87,15 @@ public class InputReader implements AutoCloseable {
 		return input.stream().mapToInt(Integer::intValue);
 	}
 	
+	
+	public List<Integer> asIntList() throws IOException {
+		List<Integer> input = new ArrayList<>();
+		while (ready()) {
+			input.add(nextInt());
+		}
+		return input;
+	}
+
 	@Override
 	public void close() {
 		try {

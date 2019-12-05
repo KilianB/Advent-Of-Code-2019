@@ -1,16 +1,16 @@
 package day4;
 
-public class SecureContainer {
+public class SecureContainer2 {
 
 	private int lowerBound;
 	private int upperBound;
 
 	public static void main(String[] args) {
-		int validPws = new SecureContainer(372037, 905157).checkRange();
+		int validPws = new SecureContainer2(372037, 905157).checkRange();
 		System.out.println(validPws);
 	}
 
-	public SecureContainer(int lowerBound, int upperBound) {
+	public SecureContainer2(int lowerBound, int upperBound) {
 		this.lowerBound = lowerBound;
 		this.upperBound = upperBound;
 	}
@@ -79,17 +79,28 @@ public class SecureContainer {
 		return true;
 	}
 
+
 	private boolean checkAdjacentEquality(int number) {
 		int temp = number;
-		int lastDigit = Integer.MIN_VALUE;
+		int lastDigit = Integer.MIN_VALUE;	
+		int cAdjacentDigits = 0;
 
 		for (int i = 0; i < 6; i++) {
 			int digit = temp % 10;
 			temp /= 10;
 			if (lastDigit == digit) {
-				return true;
+				cAdjacentDigits++;
+			} else {
+				if (cAdjacentDigits == 2) {
+					return true;
+				}
+				cAdjacentDigits = 1;
 			}
 			lastDigit = digit;
+		}
+
+		if (cAdjacentDigits == 2) {
+			return true;
 		}
 		return false;
 	}
